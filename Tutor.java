@@ -4,13 +4,13 @@ class Tutor{
 
 public static Scanner keyboard = new Scanner(System.in).useDelimiter("\n");
 
-public static void menu(){
+public static void menu(Student student){
   String input = "";
   boolean loop = true;
   System.out.println("What would you like to do?\n" +
                      "(T)est, (S)tudy, (Q)uit");
   while(loop){
-    System.out.print(">");
+    System.out.print(student.name + ">");
     input = keyboard.next().toLowerCase();
     if(input.equals("q")){
       loop = false;
@@ -37,8 +37,20 @@ public static void menu(){
 }
 
 public static void main(String[] args){
-  System.out.println("Welcome to Math Tutor!");
-  menu();
+  String name;
+  int age;
+  Student student;
+
+  System.out.println("Welcome to Math Tutor!\n");
+  
+  System.out.print("what is your name?\n>");
+  name = keyboard.next();
+  System.out.print("how old are you, " + name + " ?\n>");
+  age = keyboard.nextInt();
+  
+  student = new Student(name,age);
+  
+  menu(student);
 }
 
 
