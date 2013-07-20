@@ -73,4 +73,8 @@ public boolean check(int answer){
   return solved;
 }
 
+public void reset(){
+  solved = false;
+}
+
 }
