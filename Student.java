@@ -17,7 +17,7 @@ public void generateProblems(){
     int a = (int)(Math.random()*10);
     int b = (int)(Math.random()*10);
     int c = a + b;
-    Problem problem = new Problem(a,'+',b,c,0);
+    Problem problem = new Problem(a,'+',b,c,2);
     problems.add(problem);
     problems.addAll(problem.getRelatedProblems());
   }

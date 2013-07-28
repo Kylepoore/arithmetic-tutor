@@ -21,35 +21,45 @@ public static void study(Student student){
     Problem problem = student.problems.get(counter);
     System.out.println(problem.toString());
     System.out.print("answer: ");
-    input = keyboard.next();
+    while((input = keyboard.next()).equals(""))
+        System.out.print("Sorry, I didn't understand your input :(\n" + 
+                            "answer: ");
     if(input.toLowerCase().equals("x")){
       System.out.println("We'll study some more later!\n");
       return;
     }
-    int answer = Integer.parseInt(input);
+    int answer = 0;
+    try{
+      answer = Integer.parseInt(input);
+    }catch(Exception e){
+      System.out.println("Sorry, I didn't understand your input!");
+      continue;
+    }
+    
+    
+    
     if(problem.check(answer)){
       System.out.println("Great job!! :)\n" + problem.toString());
       counter++;
     }else{
       System.out.println("uh-oh, looks like you got it wrong. :(");
     }
-  
   }
 }
 
 public static void menu(Student student){
   String input = "";
   boolean loop = true;
-  System.out.println("What would you like to do?\n" +
-                     "(T)est, (S)tudy, (Q)uit");
+  String menuMsg = "What would you like to do?\n" +
+                     "(T)est, (S)tudy, (Q)uit";
+  System.out.println(menuMsg);
   while(loop){
     System.out.print(student.name + ">");
     input = keyboard.next().toLowerCase();
     if(input.equals("q")){
       loop = false;
     }else if(input.equals("?")){
-      System.out.println("What would you like to do?\n" +
-                         "(T)est, (S)tudy, (Q)uit");
+      System.out.println(menuMsg);
     }else if(input.equals("")){
       continue;
     }else if(input.equals("s")){
@@ -58,8 +68,7 @@ public static void menu(Student student){
       ;
     }else{
       System.out.println("I'm sorry, I didn't understand that");
-      System.out.println("What would you like to do?\n" +
-                         "(T)est, (S)tudy, (Q)uit");
+      System.out.println(menuMsg);
 
     }
 
