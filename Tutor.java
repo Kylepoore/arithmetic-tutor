@@ -6,12 +6,29 @@ public static Scanner keyboard = new Scanner(System.in).useDelimiter("\n");
 
 
 public static void study(Student student){
+  System.out.println("What would you like to study?");
+  char op = ' ';
+  do{
+    System.out.print("(A)ddition, (S)ubtraction, (M)ultiplication, (D)ivision :");
+    op = keyboard.next().toLowerCase().charAt(0);
+    switch(op){
+      case 'a': op = '+';
+      break;
+      case 's': op = '-';
+      break;
+      case 'm': op = '*';
+      break;
+      case 'd': op = '/';
+      break;
+      default : op = ' ';
+    }
+  }while(op == ' ');
   System.out.println("Okay, let's do some studying...");
   System.out.println("(press 'X' when you want to stop)");
   boolean loop = true;
   String input = "";
   int counter = 0;
-  student.generateProblems();
+  student.generateProblems(op);
   while(loop){
     if(counter >= student.problems.size()){
       System.out.println("Congratulations, we finished this set of problems!\n");
@@ -52,8 +69,8 @@ public static void menu(Student student){
   boolean loop = true;
   String menuMsg = "What would you like to do?\n" +
                      "(T)est, (S)tudy, (Q)uit";
-  System.out.println(menuMsg);
   while(loop){
+    System.out.println(menuMsg);
     System.out.print(student.name + ">");
     input = keyboard.next().toLowerCase();
     if(input.equals("q")){

@@ -12,12 +12,24 @@ public Student(String name, int age){
   this.age = age;
 }
 
-public void generateProblems(){
-  for (int i = 0; i < 3; i++){
-    int a = (int)(Math.random()*10);
-    int b = (int)(Math.random()*10);
-    int c = a + b;
-    Problem problem = new Problem(a,'+',b,c,2);
+public void generateProblems(char type){
+  for (int i = 0; i < 5; i++){
+    int a = (int)(Math.random()*1000);
+    int b = (int)(Math.random()*1000);
+    int c;
+    switch (type){
+      case '+': c = a + b;
+      break;
+      case '-': c = a - b;
+      break;
+      case '*': c = a * b;
+      break;
+      case '/': c = a / b;
+      break;
+      default: System.exit(1);
+               c=0;
+    }
+    Problem problem = new Problem(a,type,b,c,2);
     problems.add(problem);
     problems.addAll(problem.getRelatedProblems());
   }
