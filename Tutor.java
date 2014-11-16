@@ -28,21 +28,25 @@ public static void study(Student student){
   boolean loop = true;
   String input = "";
   int counter = 0;
+  int countWrong = 0;
+  int attempts = 0;
   student.generateProblems(op);
   while(loop){
     if(counter >= student.problems.size()){
       System.out.println("Congratulations, we finished this set of problems!\n");
+      student.updateLevel(op,1-(double)countWrong/attempts);
       student.problems.clear();
       return;
     }
     Problem problem = student.problems.get(counter);
-    System.out.println(problem.toString());
+    System.out.println(problem);
     System.out.print("answer: ");
     while((input = keyboard.next()).equals(""))
         System.out.print("Sorry, I didn't understand your input :(\n" + 
                             "answer: ");
     if(input.toLowerCase().equals("x")){
       System.out.println("We'll study some more later!\n");
+      student.problems.clear();
       return;
     }
     int answer = 0;
@@ -54,12 +58,13 @@ public static void study(Student student){
     }
     
     
-    
+    attempts++;
     if(problem.check(answer)){
       System.out.println("Great job!! :)\n" + problem.toString());
       counter++;
     }else{
       System.out.println("uh-oh, looks like you got it wrong. :(");
+      countWrong++;
     }
   }
 }
