@@ -5,6 +5,7 @@ class Student{
 
 public final double TARGET_PERFORMANCE = 0.80;
 public final double MIN_RATE = 0.60;
+public final int MIN_LEVEL = 5;
 public String name;
 public int age;
 public double levelAdd = 10;
@@ -23,15 +24,19 @@ public void updateLevel(char type, double performance){
   switch (type) {
     case '+':
               levelAdd *= rate;
+              levelAdd = Math.max(levelAdd,MIN_LEVEL);
     break;
     case '-': 
               levelSub *= rate; 
+              levelSub = Math.max(levelSub,MIN_LEVEL);
     break;
     case '*': 
               levelMul *= rate; 
+              levelMul = Math.max(levelMul,MIN_LEVEL);
     break;
     case '/': 
               levelDiv *= rate; 
+              levelDiv = Math.max(levelDiv,MIN_LEVEL);
     break;
     default : 
   }
@@ -61,7 +66,7 @@ public void generateProblems(char type){
                 c = a * b;
       break;
       case '/': 
-                b = (int)(Math.random()*levelDiv);
+                b = (int)(Math.random()*(levelDiv-1))+1;
                 c = (int)(Math.random()*levelDiv);
                 a = b * c;
                 c = a / b;
@@ -73,6 +78,7 @@ public void generateProblems(char type){
     problems.add(problem);
     problems.addAll(problem.getRelatedProblems());
   }
+  Collections.shuffle(problems);
 }
 
 }

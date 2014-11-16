@@ -60,7 +60,7 @@ public static void study(Student student){
     
     attempts++;
     if(problem.check(answer)){
-      System.out.println("Great job!! :)\n" + problem.toString());
+      System.out.println(problem + "\nGreat job!! :)");
       counter++;
     }else{
       System.out.println("uh-oh, looks like you got it wrong. :(");
