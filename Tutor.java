@@ -24,17 +24,18 @@ public static void study(Student student){
     }
   }while(op == ' ');
   System.out.println("Okay, let's do some studying...");
-  System.out.println("(press 'X' when you want to stop)");
+  System.out.println("(press 'X' if you want to stop)");
   boolean loop = true;
   String input = "";
   int counter = 0;
   int countWrong = 0;
   int attempts = 0;
-  student.generateProblems(op);
+  student.generateProblems(op,3);
   while(loop){
     if(counter >= student.problems.size()){
       System.out.println("Congratulations, we finished this set of problems!\n");
       student.updateLevel(op,1-(double)countWrong/attempts);
+      System.out.println("You answered " + (1-(double)countWrong/attempts)*100 + "% of the problems correctly!\n");
       student.problems.clear();
       return;
     }
@@ -60,7 +61,7 @@ public static void study(Student student){
     
     attempts++;
     if(problem.check(answer)){
-      System.out.println(problem + "\nGreat job!! :)");
+      System.out.println("Great job!! :)\n");
       counter++;
     }else{
       System.out.println("uh-oh, looks like you got it wrong. :(");

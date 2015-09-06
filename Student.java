@@ -44,8 +44,8 @@ public void updateLevel(char type, double performance){
   
 }
 
-public void generateProblems(char type){
-  for (int i = 0; i < 5; i++){
+public void generateProblems(char type, int n){
+  for (int i = 0; i < n; i++){
     int a;
     int b;
     int c;

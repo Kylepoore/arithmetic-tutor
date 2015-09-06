@@ -27,12 +27,30 @@ public ArrayList<Problem> getRelatedProblems(){
 
   switch(operator){
   case '+' :
+    problems.add(new Problem(c,'-',a,b,0));
+    problems.add(new Problem(c,'-',b,a,0));
+    problems.add(new Problem(c,'-',a,b,1));
+    problems.add(new Problem(c,'-',b,a,1));
+    problems.add(new Problem(c,'-',a,b,2));
+    problems.add(new Problem(c,'-',b,a,2));
     break;
   case '-' :
+    problems.add(new Problem(c,'+',b,a,0));
+    problems.add(new Problem(c,'+',b,a,1));
+    problems.add(new Problem(c,'+',b,a,2));
     break;
   case '*' :
+    problems.add(new Problem(c,'/',a,b,0));
+    problems.add(new Problem(c,'/',b,a,0));
+    problems.add(new Problem(c,'/',a,b,1));
+    problems.add(new Problem(c,'/',b,a,1));
+    problems.add(new Problem(c,'/',a,b,2));
+    problems.add(new Problem(c,'/',b,a,2));
     break;
   case '/' :
+    problems.add(new Problem(c,'*',b,a,0));
+    problems.add(new Problem(c,'*',b,a,1));
+    problems.add(new Problem(c,'*',b,a,2));
     break;
   }
 
