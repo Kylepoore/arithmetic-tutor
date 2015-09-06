@@ -19,9 +19,8 @@ public Problem(int a,char operator,int b,int c,int solve){
 public ArrayList<Problem> getRelatedProblems(){
   ArrayList<Problem> problems = new ArrayList<Problem>();
   for(int i = 0; i < 3; i++){
-    if (i == solve){
-      continue;
-    }
+    if (i == solve) continue;
+    if(operator == '*' && i < 2 && c == 0) continue;
     problems.add(new Problem(a,operator,b,c,i));
   }
 
@@ -40,17 +39,31 @@ public ArrayList<Problem> getRelatedProblems(){
     problems.add(new Problem(c,'+',b,a,2));
     break;
   case '*' :
-    problems.add(new Problem(c,'/',a,b,0));
-    problems.add(new Problem(c,'/',b,a,0));
-    problems.add(new Problem(c,'/',a,b,1));
-    problems.add(new Problem(c,'/',b,a,1));
-    problems.add(new Problem(c,'/',a,b,2));
-    problems.add(new Problem(c,'/',b,a,2));
+    if(a!=0){
+      problems.add(new Problem(c,'/',a,b,0));
+      if(c!=0){
+        problems.add(new Problem(c,'/',a,b,1));
+      }
+      problems.add(new Problem(c,'/',a,b,2));
+    }
+    if(b!=0){
+      problems.add(new Problem(c,'/',b,a,0));
+      if(c!=0){
+        problems.add(new Problem(c,'/',b,a,1));
+      }
+      problems.add(new Problem(c,'/',b,a,2));
+    }
     break;
   case '/' :
-    problems.add(new Problem(c,'*',b,a,0));
-    problems.add(new Problem(c,'*',b,a,1));
-    problems.add(new Problem(c,'*',b,a,2));
+    if(b!=0){
+      problems.add(new Problem(c,'*',b,a,0));
+    }
+    if(c!=0){
+      problems.add(new Problem(c,'*',b,a,1));
+    }
+    if(c!=0 && b!=0){
+      problems.add(new Problem(c,'*',b,a,2));
+    }
     break;
   }
 

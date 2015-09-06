@@ -35,7 +35,7 @@ public static void study(Student student){
     if(counter >= student.problems.size()){
       System.out.println("Congratulations, we finished this set of problems!\n");
       student.updateLevel(op,1-(double)countWrong/attempts);
-      System.out.println("You answered " + (1-(double)countWrong/attempts)*100 + "% of the problems correctly!\n");
+      System.out.printf("You answered %.2f%% of the problems correctly!\n\n", (1-(double)countWrong/attempts)*100);
       student.problems.clear();
       return;
     }
