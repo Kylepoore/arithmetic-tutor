@@ -4,19 +4,17 @@ class Student{
 
 
 public final double TARGET_PERFORMANCE = 0.80;
-public final double MIN_RATE = 0.60;
+public final double MIN_RATE = 0.80;
 public final int MIN_LEVEL = 5;
 public String name;
-public int age;
-public double levelAdd = 10;
-public double levelSub = 10;
+public double levelAdd = 15;
+public double levelSub = 15;
 public double levelMul = 10;
 public double levelDiv = 10;
-ArrayList<Problem> problems = new ArrayList<Problem>();
+List<Problem> problems = new ArrayList<Problem>();
 
-public Student(String name, int age){
+public Student(String name){
   this.name = name;
-  this.age = age;
 }
 
 public void updateLevel(char type, double performance){
@@ -45,7 +43,7 @@ public void updateLevel(char type, double performance){
 }
 
 public void generateProblems(char type, int n){
-  for (int i = 0; i < n; i++){
+  for (int i = 0; i < 2*n; i++){
     int a;
     int b;
     int c;
@@ -79,6 +77,7 @@ public void generateProblems(char type, int n){
     problems.addAll(problem.getRelatedProblems());
   }
   Collections.shuffle(problems);
+  problems = problems.subList(0,n);
 }
 
 }

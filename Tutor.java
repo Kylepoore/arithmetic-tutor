@@ -3,7 +3,7 @@ import java.util.*;
 class Tutor{
 
 public static Scanner keyboard = new Scanner(System.in).useDelimiter("\n");
-
+public static final int MAX_PROBLEM_ATTEMPTS = 2;
 
 public static void study(Student student){
   System.out.println("What would you like to study?");
@@ -30,7 +30,8 @@ public static void study(Student student){
   int counter = 0;
   int countWrong = 0;
   int attempts = 0;
-  student.generateProblems(op,3);
+  int problemAttempts = 0;
+  student.generateProblems(op,20);
   while(loop){
     if(counter >= student.problems.size()){
       System.out.println("Congratulations, we finished this set of problems!\n");
@@ -43,10 +44,9 @@ public static void study(Student student){
     System.out.println(problem);
     System.out.print("answer: ");
     while((input = keyboard.next()).equals(""))
-        System.out.print("Sorry, I didn't understand your input :(\n" + 
-                            "answer: ");
+        System.out.print("Sorry, I didn't understand your input\nanswer: ");
     if(input.toLowerCase().equals("x")){
-      System.out.println("We'll study some more later!\n");
+      System.out.println("We'll study more later!\n");
       student.problems.clear();
       return;
     }
@@ -60,12 +60,26 @@ public static void study(Student student){
     
     
     attempts++;
+    problemAttempts++;
+
+    boolean result = problem.check(answer);
+
+
     if(problem.check(answer)){
-      System.out.println("Great job!! :)\n");
+      System.out.println("Great job!! :)\n\n");
       counter++;
-    }else{
-      System.out.println("uh-oh, looks like you got it wrong. :(");
+      problemAttempts = 0;
+    }else if(problemAttempts >= MAX_PROBLEM_ATTEMPTS){
+      System.out.println("uh-oh, looks like you got it wrong. :(\n\nDon't worry! you'll get to try again later!\n");
+      List<Problem> related = problem.getRelatedProblems();
+      related = related.subList(0,5);
+      Collections.shuffle(related);
+      student.problems.addAll(related);
       countWrong++;
+      counter++;
+      problemAttempts = 0;
+    }else{
+      System.out.println("try again! " + (MAX_PROBLEM_ATTEMPTS - problemAttempts) + " tries left.");
     }
   }
 }
@@ -100,18 +114,17 @@ public static void menu(Student student){
 }
 
 public static void main(String[] args){
-  String name;
-  int age;
+  String name = "Jeff";
   Student student;
 
-  System.out.println("Welcome to Math Tutor!\n");
+  System.out.println("Math Tutor\n\n\n");
   
-  System.out.print("what is your name?\n>");
-  name = keyboard.next();
-  System.out.print("how old are you, " + name + " ?\n>");
-  age = keyboard.nextInt();
-  
-  student = new Student(name,age);
+  System.out.println("Hi " + name + "!\n");
+  System.out.println("Welcome Back!\n\n\n");
+
+
+
+  student = new Student(name);
   
   menu(student);
 
