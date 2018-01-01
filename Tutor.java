@@ -31,11 +31,11 @@ public static void study(Student student){
   int countWrong = 0;
   int attempts = 0;
   int problemAttempts = 0;
-  student.generateProblems(op,20);
+  student.generateProblems(op,20,true);
   while(loop){
     if(counter >= student.problems.size()){
       System.out.println("Congratulations, we finished this set of problems!\n");
-      student.updateLevel(op,1-(double)countWrong/attempts);
+      //student.updateLevel(op,1-(double)countWrong/attempts);
       System.out.printf("You answered %.2f%% of the problems correctly!\n\n", (1-(double)countWrong/attempts)*100);
       student.problems.clear();
       return;
@@ -84,6 +84,71 @@ public static void study(Student student){
   }
 }
 
+public static void test(Student student){
+  System.out.println("What is the test subject?");
+  char op = ' ';
+  int ncorrect = 0;
+  int n = 20;
+  String input;
+  do{
+    System.out.print("(A)ddition, (S)ubtraction, (M)ultiplication, (D)ivision :");
+    op = keyboard.next().toLowerCase().charAt(0);
+    switch(op){
+      case 'a': op = '+';
+      break;
+      case 's': op = '-';
+      break;
+      case 'm': op = '*';
+      break;
+      case 'd': op = '/';
+      break;
+      default : op = ' ';
+    }
+  }while(op == ' ');
+
+  student.generateProblems(op,n,false);
+  for(Problem p:student.problems){
+    boolean goodInput = false;
+    int answer = 0;
+    while(!goodInput){
+      System.out.println(p);
+      System.out.print("answer: ");
+      while((input = keyboard.next()).equals(""))
+        System.out.print("Sorry, I didn't understand your input\nanswer: ");
+      if(input.toLowerCase().equals("x")){
+        System.out.println("We'll study more later!\n");
+        student.problems.clear();
+        return;
+      }
+      try{
+        answer = Integer.parseInt(input);
+        goodInput = true;
+      }catch(Exception e){
+        System.out.println("Sorry, I didn't understand your input!");
+        continue;
+      }
+    }
+    boolean result = p.check(answer);
+    if(result){
+      ncorrect++;
+      System.out.println("CORRECT :)");
+    }else{
+      System.out.println("INCORRECT :(");
+    }
+
+
+
+  }
+
+  double score = (double)ncorrect/n;
+
+  System.out.println("Your score on this test is " + (int)(score*100) + "%");
+  student.updateLevel(op,score);
+  student.problems.clear();
+
+
+}
+
 public static void menu(Student student){
   String input = "";
   boolean loop = true;
@@ -102,7 +167,7 @@ public static void menu(Student student){
     }else if(input.equals("s")){
       study(student);
     }else if(input.equals("t")){
-      ;
+      test(student);
     }else{
       System.out.println("I'm sorry, I didn't understand that");
       System.out.println(menuMsg);
