@@ -42,7 +42,7 @@ public void updateLevel(char type, double performance){
   
 }
 
-public void generateProblems(char type, int n){
+public void generateProblems(char type, int n, boolean related){
   for (int i = 0; i < 2*n; i++){
     int a;
     int b;
@@ -74,7 +74,9 @@ public void generateProblems(char type, int n){
     }
     Problem problem = new Problem(a,type,b,c,2);
     problems.add(problem);
-    problems.addAll(problem.getRelatedProblems());
+    if(related){
+      problems.addAll(problem.getRelatedProblems());
+    }
   }
   Collections.shuffle(problems);
   problems = problems.subList(0,n);
